@@ -2,13 +2,18 @@
 
 namespace Scraper\Models;
 
+use Scraper\Interfaces\HtmlElementExtractorInterface;
+use Scraper\Interfaces\HttpGetClientInterface;
+use Scraper\Services\Client;
 use SimpleXMLElement;
 
 class Scraper
 {
 
     protected $sitemap;
+    protected HtmlElementExtractorInterface $extractor;
     protected $urls = [];
+    protected HttpGetClientInterface $client;
 
     /**
      * __construct
@@ -16,10 +21,12 @@ class Scraper
      * @param  mixed $sitemapUrl
      * @return void
      */
-    public function __construct(String $sitemapUrl)
+    public function __construct(String $sitemapUrl, HttpGetClientInterface $client = null, HtmlElementExtractorInterface $extractor = null)
     {
         $this->sitemap = new SimpleXMLElement($sitemapUrl, null, true);
         $this->getXmlUrls($this->sitemap);
+        $this->client = $client ?: new Client();
+        $this->extractor = $extractor ?: new Extractor();
     }
 
     public function fetch()
@@ -58,9 +65,9 @@ class Scraper
      */
     public function fetchHtmlByUrl(String $url)
     {
-        $html = Client::get($url);
-        $extractor = new Extractor($html);
+        $html = $this->client->get($url);
+        $this->extractor->setHtml($html);
 
-        return $extractor->getByElements();
+        return $this->extractor->getByElements(['h1', 'h2', 'h3', 'h4', 'title', 'p']);
     }
 }

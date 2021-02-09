@@ -2,18 +2,20 @@
 
 namespace Scraper\Models;
 
-class Extractor
+use Scraper\Interfaces\HtmlElementExtractorInterface;
+
+class Extractor implements HtmlElementExtractorInterface
 {
 
     protected $html;
 
     /**
-     * __construct
+     * setHtml
      *
      * @param  mixed $html
      * @return void
      */
-    public function __construct(String $html)
+    public function setHtml(String $html)
     {
         $this->html = $html;
     }
@@ -41,7 +43,7 @@ class Extractor
      * @param  mixed $elements
      * @return void
      */
-    public function getByElements(array $elements = ['h1', 'h2', 'h3', 'h4', 'title', 'p'])
+    public function getByElements(array $elements)
     {
         $data = [];
 

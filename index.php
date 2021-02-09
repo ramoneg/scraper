@@ -1,12 +1,14 @@
 <?php
 
+use Scraper\Models\Extractor;
+use Scraper\Models\SimpleHttpClient;
 use Scraper\Models\Scraper;
 
 require "vendor/autoload.php";
 
 $sitemapUrl = $argv[1] ?? exit;
 
-$scraper = new Scraper($sitemapUrl);
+$scraper = new Scraper($sitemapUrl, new SimpleHttpClient(), new Extractor());
 
 $json = json_encode($scraper->fetch(), JSON_UNESCAPED_UNICODE);
 

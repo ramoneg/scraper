@@ -11,7 +11,7 @@ $args = (new \samejack\PHP\ArgvParser())->parseConfigs($argv);
 
 $elements = isset($args['elements']) ? explode(',', $args['elements']) : [];
 $insideClass = isset($args['inside-class']) ? $args['inside-class'] : null;
-$metaTags = isset($args['metaTags']) ? explode(',', $args['metaTags']) : [];
+$metaTags = isset($args['meta-tags']) ? explode(',', $args['meta-tags']) : [];
 
 $sitemap = $args['sitemap'];
 

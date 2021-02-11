@@ -8,6 +8,9 @@ class Extractor implements HtmlElementExtractorInterface
 {
 
     protected $html;
+    protected $elements;
+    protected $classes;
+    protected $metaTags;
 
     /**
      * setHtml
@@ -21,12 +24,23 @@ class Extractor implements HtmlElementExtractorInterface
     }
 
     /**
-     * getByElement
+     * setElements
+     *
+     * @param  mixed $html
+     * @return void
+     */
+    public function setElements(array $elements)
+    {
+        $this->elements = $elements;
+    }
+
+    /**
+     * getContentByHtmlElement
      *
      * @param  mixed $element
      * @return String
      */
-    public function getByElement(String $element): ?String
+    public function getContentByHtmlElement(String $element): ?String
     {
         $startPosition = stripos($this->html, "<$element");
         $endPosition = stripos($this->html, "</$element", $startPosition);
@@ -38,17 +52,17 @@ class Extractor implements HtmlElementExtractorInterface
     }
 
     /**
-     * getByElements
+     * getContentByHtmlElements
      *
      * @param  mixed $elements
      * @return void
      */
-    public function getByElements(array $elements)
+    public function getContentByHtmlElements()
     {
         $data = [];
 
-        foreach ($elements as $e) {
-            $elementData = $this->getByElement($e);
+        foreach ($this->elements as $e) {
+            $elementData = $this->getContentByHtmlElement($e);
             if ($elementData) {
                 $data[$e] = $elementData;
             }

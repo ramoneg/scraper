@@ -4,9 +4,12 @@ namespace Scraper\Interfaces;
 
 interface HtmlElementExtractorInterface
 {
+
     public function setHtml(String $html);
 
-    public function getByElement(String $element): ?String;
+    public function getContentByHtmlElement(String $element): ?String;
 
-    public function getByElements(array $elements);
+    public function getContentByHtmlElements();
+
+    public function setElements(array $elements);
 }

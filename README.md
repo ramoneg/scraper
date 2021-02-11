@@ -31,6 +31,7 @@ vendor/bin/scraper
 ### Command
     vendor/bin/scraper --sitemap="https://zen.oceanwp.org/wp-sitemap.xml" --elements="h1,p"
 ### Result
+the resulting json file is stored in the *exports* folder in the package root. (Most likely in vendors/ramoneg/scraper/exports)
 ```json
 {
 	"https://zen.oceanwp.org/cras-metus-sed-aliquet-risus-a-tortor/": {

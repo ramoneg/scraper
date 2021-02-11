@@ -22,7 +22,7 @@ class Extractor implements HtmlElementExtractorInterface
     public function setHtml(String $html)
     {
         $this->html = new DOMDocument();
-        @ $this->html->loadHTML($html);
+        @$this->html->loadHTML($html);
     }
 
     /**
@@ -36,6 +36,18 @@ class Extractor implements HtmlElementExtractorInterface
         $this->elements = $elements;
     }
 
+
+    /**
+     * setMetaTags
+     *
+     * @param  mixed $metaTags
+     * @return void
+     */
+    public function setMetaTags(array $metaTags)
+    {
+        $this->metaTags = $metaTags;
+    }
+
     /**
      * getContentByHtmlElements
      *
@@ -45,7 +57,6 @@ class Extractor implements HtmlElementExtractorInterface
     public function getContentByHtmlElements()
     {
         $data = [];
-
         foreach ($this->elements as $element) {
             $elementData = $this->html->getElementsByTagName($element);
             if (count($elementData) > 0) {
@@ -54,6 +65,46 @@ class Extractor implements HtmlElementExtractorInterface
                     $data[$element][] = $value->textContent;
                 }
             }
+        }
+
+        return $data;
+    }
+
+    /**
+     * getContentByMetaTags
+     *
+     * @return void
+     */
+    public function getContentByMetaTags()
+    {
+        $pageMetaTags = $this->html->getElementsByTagName('meta');
+
+        $data = [];
+
+        foreach ($this->metaTags as $userInputMetaTag) {
+            foreach ($pageMetaTags as $pageMetaTag) {
+                if ($pageMetaTag->getAttribute('name') == $userInputMetaTag) {
+                    $data[$userInputMetaTag] = $pageMetaTag->getAttribute('content');
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    
+    /**
+     * getPageTitle
+     *
+     * @return void
+     */
+    public function getPageTitle()
+    {
+        $data = $this->html->getElementsByTagName('title');
+        if (count($data) > 0) {
+            $data = $data[0]->textContent;
+        } else {
+            $data = '-';
         }
 
         return $data;

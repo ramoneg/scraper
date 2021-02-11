@@ -34,7 +34,7 @@ class Scraper
         $data = [];
 
         foreach ($this->urls as $url) {
-            $data[(string) $url] = $this->fetchHtmlDataByUrl($url);
+            $data[(string) $url] = $this->scrapeHtmlByUrl($url);
         }
 
         return $data;
@@ -58,16 +58,21 @@ class Scraper
     }
 
     /**
-     * fetchHtmlDataByUrl
+     * scrapeHtmlByUrl
      *
      * @param  mixed $url
      * @return void
      */
-    public function fetchHtmlDataByUrl(String $url)
+    public function scrapeHtmlByUrl(String $url)
     {
         $html = $this->client->get($url);
         $this->extractor->setHtml($html);
 
-        return $this->extractor->getContentByHtmlElements();
+        $data = [];
+        $data['title'] = $this->extractor->getPageTitle();
+        $data['elements'] = $this->extractor->getContentByHtmlElements();
+        $data['metaTags'] = $this->extractor->getContentByMetaTags();
+
+        return $data;
     }
 }

@@ -9,12 +9,16 @@ require "vendor/autoload.php";
 
 $args = (new \samejack\PHP\ArgvParser())->parseConfigs($argv);
 
-$elements = explode(',', $args['elements']);
+$elements = isset($args['elements']) ? explode(',', $args['elements']) : [];
+$metaTags = isset($args['metaTags']) ? explode(',', $args['metaTags']) : [];
+
 $sitemap = $args['sitemap'];
+
 $extractor = new Extractor();
 $httpClient = new SimpleHttpClient();
 
 $extractor->setElements($elements);
+$extractor->setMetaTags($metaTags);
 
 $scraper = new Scraper($sitemap, $httpClient, $extractor);
 

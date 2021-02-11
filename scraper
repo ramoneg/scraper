@@ -10,6 +10,7 @@ require "vendor/autoload.php";
 $args = (new \samejack\PHP\ArgvParser())->parseConfigs($argv);
 
 $elements = isset($args['elements']) ? explode(',', $args['elements']) : [];
+$insideClass = isset($args['inside-class']) ? $args['inside-class'] : null;
 $metaTags = isset($args['metaTags']) ? explode(',', $args['metaTags']) : [];
 
 $sitemap = $args['sitemap'];
@@ -19,6 +20,7 @@ $httpClient = new SimpleHttpClient();
 
 $extractor->setElements($elements);
 $extractor->setMetaTags($metaTags);
+$extractor->setInsideClass($insideClass);
 
 $scraper = new Scraper($sitemap, $httpClient, $extractor);
 

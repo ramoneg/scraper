@@ -1,3 +1,4 @@
 vendor
 composer.lock
 exports/*.json
+.DS_Store

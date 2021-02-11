@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+use Scraper\Models\Extractor;
+use Scraper\Models\SimpleHttpClient;
+use Scraper\Models\Scraper;
+
+require "vendor/autoload.php";
+
+$args = (new \samejack\PHP\ArgvParser())->parseConfigs($argv);
+
+$elements = explode(',', $args['elements']);
+$sitemap = $args['sitemap'];
+$extractor = new Extractor();
+$httpClient = new SimpleHttpClient();
+
+$extractor->setElements($elements);
+
+$scraper = new Scraper($sitemap, $httpClient, $extractor);
+
+$json = json_encode($scraper->fetch(), JSON_UNESCAPED_UNICODE);
+
+if (file_put_contents("exports/" . date("Y-m-d h:i") . ".json", $json)) {
+    print_r("JSON file created successfully.\n");
+}

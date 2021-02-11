@@ -27,7 +27,6 @@ $scraper = new Scraper($sitemap, $httpClient, $extractor);
 $scraper->exclude($excludes);
 
 $json = json_encode($scraper->fetch(), JSON_UNESCAPED_UNICODE);
-
-if (file_put_contents("exports/" . date("Y-m-d H:i") . ".json", $json)) {
+if (file_put_contents(dirname(__FILE__) . "/exports/" . date("Y-m-d H:i") . ".json", $json)) {
     print_r("JSON file created successfully.\n");
 }

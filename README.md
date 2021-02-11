@@ -5,9 +5,31 @@ A simple webscraper which scans a XML file (including it's childs-xmls) and expo
 
 You can scrape or clone the data of a complete Wordpress site for example.
 
+## Installation
+
+Add a vcs record to your composer.json (until it's release on packagist).
+```json
+"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ramoneg/scraper"
+        }
+    ]
+```
+Install it with **composer require**
+```bash
+composer require ramoneg/scraper
+```
+Fire it up with the binary in the vendors/bin folder
+```bash
+vendor/bin/scraper
+```
+
+
+
 ## Basic Example
 ### Command
-    ./scraper --sitemap="https://zen.oceanwp.org/wp-sitemap.xml" --elements="h1,p"
+    vendor/bin/scraper --sitemap="https://zen.oceanwp.org/wp-sitemap.xml" --elements="h1,p"
 ### Result
 ```json
 {

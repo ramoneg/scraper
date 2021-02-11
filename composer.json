@@ -1,4 +1,18 @@
 {
+    "name": "ramoneg/scraper",
+    "type": "library",
+    "description": "Scrape html content by urls in sitemaps",
+    "keywords": ["sitemap","scraper"],
+    "homepage": "https://github.com/ramoneg/scraper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ramon Egger",
+            "email": "ramon@ramonegger.ch",
+            "homepage": "https://ramonegger.ch",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=7.4",
         "samejack/php-argv": "^1.0"

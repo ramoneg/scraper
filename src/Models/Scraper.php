@@ -29,6 +29,27 @@ class Scraper
         $this->extractor = $extractor ?: new Extractor();
     }
 
+    /**
+     * exclude
+     *
+     * @param  mixed $excludes
+     * @return void
+     */
+    public function exclude(array $excludes): void
+    {
+        
+        if (count($excludes) > 0) {
+            foreach ($excludes as $exclude) {
+                $this->urls = preg_grep("/" . str_replace('/', '\/', $exclude) . "/i", $this->urls, PREG_GREP_INVERT);
+            }
+        }
+    }
+
+    /**
+     * fetch
+     *
+     * @return void
+     */
     public function fetch()
     {
         $data = [];

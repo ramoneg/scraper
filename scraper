@@ -10,6 +10,7 @@ require "vendor/autoload.php";
 $args = (new \samejack\PHP\ArgvParser())->parseConfigs($argv);
 
 $elements = isset($args['elements']) ? explode(',', $args['elements']) : [];
+$excludes = isset($args['excludes']) ? explode(',', $args['excludes']) : [];
 $insideClass = isset($args['inside-class']) ? $args['inside-class'] : null;
 $metaTags = isset($args['meta-tags']) ? explode(',', $args['meta-tags']) : [];
 
@@ -23,9 +24,10 @@ $extractor->setMetaTags($metaTags);
 $extractor->setInsideClass($insideClass);
 
 $scraper = new Scraper($sitemap, $httpClient, $extractor);
+$scraper->exclude($excludes);
 
 $json = json_encode($scraper->fetch(), JSON_UNESCAPED_UNICODE);
 
-if (file_put_contents("exports/" . date("Y-m-d h:i") . ".json", $json)) {
+if (file_put_contents("exports/" . date("Y-m-d H:i") . ".json", $json)) {
     print_r("JSON file created successfully.\n");
 }

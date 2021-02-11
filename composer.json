@@ -21,5 +21,8 @@
         "psr-4": {
             "Scraper\\": "src/"
         }
-    }
+    },
+    "bin": [
+        "scraper"
+    ]
 }

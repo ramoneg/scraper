@@ -2,6 +2,7 @@
 
 namespace Scraper\Models;
 
+use DOMDocument;
 use Scraper\Interfaces\HtmlElementExtractorInterface;
 
 class Extractor implements HtmlElementExtractorInterface
@@ -20,7 +21,8 @@ class Extractor implements HtmlElementExtractorInterface
      */
     public function setHtml(String $html)
     {
-        $this->html = $html;
+        $this->html = new DOMDocument();
+        @ $this->html->loadHTML($html);
     }
 
     /**
@@ -35,23 +37,6 @@ class Extractor implements HtmlElementExtractorInterface
     }
 
     /**
-     * getContentByHtmlElement
-     *
-     * @param  mixed $element
-     * @return String
-     */
-    public function getContentByHtmlElement(String $element): ?String
-    {
-        $startPosition = stripos($this->html, "<$element");
-        $endPosition = stripos($this->html, "</$element", $startPosition);
-        $length = $endPosition - $startPosition;
-
-        $value = strip_tags(substr($this->html, $startPosition, $length)) ?: null;
-
-        return $value;
-    }
-
-    /**
      * getContentByHtmlElements
      *
      * @param  mixed $elements
@@ -61,10 +46,13 @@ class Extractor implements HtmlElementExtractorInterface
     {
         $data = [];
 
-        foreach ($this->elements as $e) {
-            $elementData = $this->getContentByHtmlElement($e);
-            if ($elementData) {
-                $data[$e] = $elementData;
+        foreach ($this->elements as $element) {
+            $elementData = $this->html->getElementsByTagName($element);
+            if (count($elementData) > 0) {
+                $data[$element] = [];
+                foreach ($elementData as $value) {
+                    $data[$element][] = $value->textContent;
+                }
             }
         }
 

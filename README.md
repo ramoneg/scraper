@@ -73,3 +73,4 @@ the resulting json file is stored in the *exports* folder in the package root. (
 | LinkedIn | https://www.linkedin.com/in/ramon-egger-7509a4123/
 | Instagram | https://instagram.com/aintroman
 | RACERFISH | https://racerfish.com
+| Portfolio | https://ramonegger.ch

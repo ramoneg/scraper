@@ -64,7 +64,7 @@ the resulting json file is stored in the *exports* folder in the package root. (
 | elements | h1,h2,p | the elements which will be stored in the json file. | yes |
 | meta-tags | description,twitter:creator | the meta fields which will be stored in the json file. | no |
 | inside-class | page-content | only fetch elements from withing this class | no |
-| exclude | https://zen.oceanwp.org/blog/,https://zen.oceanwp.org/about-us/ | exclude urls from scraping (**adds wildcard at the end!**). | no |
+| exclude | https://zen.oceanwp.org/blog/ | exclude urls from scraping (**adds wildcard at the end!**). | no |
 
 
 ## Socials
